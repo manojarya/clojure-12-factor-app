@@ -1,0 +1,4 @@
+{
+ :profile { :prod   {:resource-paths  ["${APP_HOME}/conf/application-override.properties", "${APP_HOME}/conf/common.properties"]}
+            :default {:resource-paths  ["test/resources/application-override.properties", "test/resources/common.properties"]}}
+ }

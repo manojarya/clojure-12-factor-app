@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<timestamp key="timeStampAsString" datePattern="yyyyMMdd'T'HHmmss"/>
+
+	<!-- log file logging -->
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<File>${catalina.base}/logs/clojure-12-factor-app.log</File> <!-- non-windows path -->
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${catalina.base}/logs/clojure-12-factor-app.%d{yyyy-MM-dd}.log</FileNamePattern>
+		</rollingPolicy>
+
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%date{YYYY-MM-dd HH:mm:ss.SSS,UTC},%date{YYYY-MM-dd HH:mm:ss.SSS},%level, [%thread] &#60;%mdc, className=%logger, methodName=%method&#62;, %logger{0} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="asyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+		<param name="includeCallerData" value="true"/>
+		<appender-ref ref="fileAppender"/>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="fileAppender" />
+	</root>
+
+
+	<!-- console logging -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+	    </encoder>
+	</appender>
+
+	<root level="debug">
+		<appender-ref ref="stdout" />
+	</root>
+
+
+
+</configuration>

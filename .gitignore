@@ -1,0 +1,17 @@
+# Can ignore specific files
+.DS_Store
+*.iml
+.idea/
+.classpath
+.project
+.settings/
+.vagrant/
+target/
+test-output/
+bin/
+*.log
+*.csv
+*.pdf
+*.html
+dtree.txt
+
