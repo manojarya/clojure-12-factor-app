@@ -7,7 +7,7 @@
             [clojure.tools.logging :as log])
   (:gen-class))
 
-(defn start [active-profile env-map]
+(defn get-config [active-profile env-map]
   (log/info "starting 12 factor clojure app in mode " active-profile)
   (let [config-map  (helper/load-configuration "resources/config.edn")
         property-files (get-in config-map [:profile active-profile :resource-paths])
@@ -15,10 +15,21 @@
     (into {} (helper/load-properties resolved-property-files))))
 
 
-(defn example-system [config-options]
-  (component/system-map
-    :db (db/new-database (:service.database.host config-options)
-                         (:service.database.port config-options)
-                         (:service.database.name config-options)
-                         (:service.database.username config-options)
-                         (:service.database.password config-options))))
+(defrecord App [options cache database]
+  component/Lifecycle
+  ;starts the database component
+  (start [this]
+      (log/info "starting my-component .....")
+      (-> this
+          (assoc :options options)
+          (assoc :cache cache)
+          (assoc :db database)))
+
+  (stop [this]
+    (log/info "starting my-component .....")
+    this))
+
+
+(defn new-app [opts]
+  (map->App         {:options opts
+                     :cache (atom {})}))

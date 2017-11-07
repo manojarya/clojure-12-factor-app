@@ -13,6 +13,13 @@
       <url>http://www.eclipse.org/legal/epl-v10.html</url>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:git:git://github.com/manojarya/clojure-12-factor-app.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/manojarya/clojure-12-factor-app.git</developerConnection>
+    <tag>a6abb06ca43da240c62158ba7334607a8d219f85
+</tag>
+    <url>https://github.com/manojarya/clojure-12-factor-app</url>
+  </scm>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
