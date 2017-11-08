@@ -7,22 +7,22 @@
   {:host host :port port :name name :user user :password password})
 
 (defn disconnect-database [conn]
-  (log/info "disconnecting database host %s " conn))
+  (log/info "disconnecting database host " conn))
 
 (defn select [database query]
-  (log/info "executing query %s using connection %s" query (:connection database)))
+  (log/info "executing query" query "using connection" (:connection database)))
 
 (defrecord Database [host port name user password]
   component/Lifecycle
   ;starts the database component
   (start [component]
-      (log/info "starting database host %s port %s name % user % password *****" host port name user)
+      (log/info "starting database host" host "port:" port "name" name "user" user)
       (let [conn (connect-to-database host port name user password)]
         (assoc component :db-connection conn)))
 
   ;stops the database component
   (stop [component]
-    (log/info "stopping database host %s port %s name % user % password *****" host port name user)
+    (log/info "stopping database host" host "port:" port "name" name "user" user)
     (disconnect-database (:db-connection component))
     (assoc component :db-connection nil)))
 

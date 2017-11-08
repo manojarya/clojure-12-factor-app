@@ -19,14 +19,14 @@
   component/Lifecycle
   ;starts the database component
   (start [this]
-      (log/info "starting my-component .....")
+      (log/info "starting my application .....")
       (-> this
           (assoc :options options)
           (assoc :cache cache)
           (assoc :db database)))
 
   (stop [this]
-    (log/info "starting my-component .....")
+    (log/info "stopping my application.....")
     this))
 
 

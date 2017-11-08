@@ -15,4 +15,4 @@ bin/
 *.html
 dtree.txt
 *.lein-failures
-
+*.lein-repl-history

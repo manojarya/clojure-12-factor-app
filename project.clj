@@ -18,7 +18,7 @@
                  [propertea "1.2.3"]
 
                  ;logging
-                 [org.clojure/tools.logging "0.3.1"]
+                 [org.clojure/tools.logging "0.4.0"]
                  [ch.qos.logback/logback-classic "1.2.3"]
                  ]
 
