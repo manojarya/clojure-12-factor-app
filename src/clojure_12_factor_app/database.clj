@@ -9,8 +9,9 @@
 (defn disconnect-database [conn]
   (log/info "disconnecting database host " conn))
 
-(defn select [database query]
-  (log/info "executing query" query "using connection" (:connection database)))
+(defn select [connection query]
+  (log/info "executing query" query "using connection" connection)
+  query)
 
 (defrecord Database [host port name user password]
   component/Lifecycle

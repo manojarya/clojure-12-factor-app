@@ -33,3 +33,6 @@
 (defn new-app [opts]
   (map->App         {:options opts
                      :cache (atom {})}))
+
+(defn get-app-data [database query]
+  (db/select (:db-connection database) query))
