@@ -2,8 +2,10 @@
   (:require [clojure.test :refer :all]
             [clojure-12-factor-app.core :refer :all]
             [clojure-12-factor-app.database :as db]
-            [clojure-12-factor-app.helper :as helper]
+            [clojure-12-factor-app.config :as config]
             [com.stuartsierra.component :as component]))
+
+(def not-nil? (complement nil?))
 
 (defn example-system [config-options]
   (component/system-map
@@ -20,15 +22,15 @@
 
 (deftest valid-config-start-components-init-system
   (testing "example system start/stop"
-    (let [example-sys-1  (example-system  (get-config :default {}))
+    (let [example-sys-1  (example-system  (config/load-configuration :default {}))
           app-system-map (component/start example-sys-1)]
       (testing "system-map has app and db initialized"
-        (is (helper/not-nil? (get-in app-system-map [:db :db-connection])) "db connection can not be null.")))))
+        (is (not-nil? (get-in app-system-map [:db :db-connection])) "db connection can not be null.")))))
 
 
 (deftest valid-config-start-components-usage
   (testing "example system start/stop"
-    (let [example-sys-1  (example-system  (get-config :default {}))
+    (let [example-sys-1  (example-system  (config/load-configuration :default {}))
           app-system-map (component/start example-sys-1)]
       (testing "select query"
-        (is (helper/not-nil? (get-app-data (:db app-system-map) "query1")) "db connection can not be null.")))))
+        (is (not-nil? (get-app-data (:db app-system-map) "query1")) "db connection can not be null.")))))
