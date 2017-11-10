@@ -21,16 +21,14 @@
            {:database :db})))
 
 (deftest valid-config-start-components-init-system
-  (testing "example system start/stop"
-    (let [example-sys-1  (example-system  (config/load-configuration :default {}))
-          app-system-map (component/start example-sys-1)]
-      (testing "system-map has app and db initialized"
-        (is (not-nil? (get-in app-system-map [:db :db-connection])) "db connection can not be null.")))))
+  (let [example-sys-1  (example-system (config/load :active-profile :default, :environment {}))
+        app-system-map (component/start example-sys-1)]
+    (testing "system-map has app and db initialized"
+      (is (not-nil? (get-in app-system-map [:db :db-connection])) "db connection can not be null."))))
 
 
 (deftest valid-config-start-components-usage
-  (testing "example system start/stop"
-    (let [example-sys-1  (example-system  (config/load-configuration :default {}))
-          app-system-map (component/start example-sys-1)]
-      (testing "select query"
-        (is (not-nil? (get-app-data (:db app-system-map) "query1")) "db connection can not be null.")))))
+  (let [example-sys-1  (example-system (config/load))
+        app-system-map (component/start example-sys-1)]
+    (testing "select query"
+      (is (= "query1" (get-app-data (:db app-system-map) "query1"))))))

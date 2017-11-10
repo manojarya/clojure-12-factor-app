@@ -16,7 +16,7 @@
   <scm>
     <connection>scm:git:git://github.com/manojarya/clojure-12-factor-app.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/manojarya/clojure-12-factor-app.git</developerConnection>
-    <tag>a6abb06ca43da240c62158ba7334607a8d219f85
+    <tag>22ef184464eaff10173968dbff9482edf979c687
 </tag>
     <url>https://github.com/manojarya/clojure-12-factor-app</url>
   </scm>
@@ -86,7 +86,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.logging</artifactId>
-      <version>0.3.1</version>
+      <version>0.4.0</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>

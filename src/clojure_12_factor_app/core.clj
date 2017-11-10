@@ -21,7 +21,6 @@
     (log/info "stopping my application.....")
     this))
 
-
 (defn new-app [opts]
   (map->App         {:options opts
                      :cache (atom {})}))
