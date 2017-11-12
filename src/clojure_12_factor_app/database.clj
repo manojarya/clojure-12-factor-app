@@ -1,32 +1,19 @@
 (ns clojure-12-factor-app.database
-  (:require  [com.stuartsierra.component :as component]
-             [clojure.tools.logging :as log]))
+  (:require
+    [mount.core :refer [defstate]]
+    [clojure-12-factor-app.config :refer [config-options]]
+    [clojure.tools.logging :as log]))
 
-(defn connect-to-database [host port name user password]
-  (log/info "connecting database host %s port %s name % user % password *****" host port name user)
-  {:host host :port port :name name :user user :password password})
+(defn- connect-to-database [config-options]
+  (log/info "connecting to mount-database with config-options" config-options)
+  {:host (:service.database.host config-options)
+   :port (:service.database.port config-options)
+   :name (:service.database.name config-options)
+   :user (:service.database.username config-options)
+   :password (:service.database.password config-options)})
 
-(defn disconnect-database [conn]
-  (log/info "disconnecting database host " conn))
+(defstate conn :start (connect-to-database config-options))
 
-(defn select [connection query]
-  (log/info "executing query" query "using connection" connection)
+(defn select [query]
+  (log/info "executing query" query "using connection" conn)
   query)
-
-(defrecord Database [host port name user password]
-  component/Lifecycle
-  ;starts the database component
-  (start [component]
-      (log/info "starting database host" host "port:" port "name" name "user" user)
-      (let [conn (connect-to-database host port name user password)]
-        (assoc component :db-connection conn)))
-
-  ;stops the database component
-  (stop [component]
-    (log/info "stopping database host" host "port:" port "name" name "user" user)
-    (disconnect-database (:db-connection component))
-    (assoc component :db-connection nil)))
-
-(defn new-database [host port name user password] "ctor for the database record"
-  (map->Database {:host host :port port :name name :user user :password password}))
-

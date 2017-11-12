@@ -3,11 +3,17 @@
             [clojure.tools.logging :as log]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [propertea.core]))
+            [propertea.core]
+            [mount.core :refer [defstate]]
+            ))
 
 (def ^:const config-file "resources/config.edn")
-
 (def not-nil? (complement nil?))
+
+(def app-config (atom {}))
+
+(defn start [active-profile environment]
+  (swap! app-config merge {:active-profile active-profile :environment environment}))
 
 (defn- resolve-environment-variable [exp lookup-map] "resolves pattern ${env-var} in the exp using lookup-map"
   (let [place-holder-regex (re-pattern "\\$\\{([^}]+)\\}")
@@ -22,13 +28,12 @@
   (into {} (reduce (fn [m file] (merge m (propertea.core/read-properties file)))
                    [] property-files)))
 
-(defn load [& {:keys [active-profile environment]
-                     :or { active-profile :default
-                           environment    {}}}]
-  (log/info "loading config:" config-file  "profile:" active-profile "environment:")
+(defn load-config [active-profile environment]
   (->
     (edn/read-string (slurp (io/reader config-file)))
     (get-in [:profile active-profile :resource-paths])
     (resolve-environment-variables environment)
     (load-properties)))
 
+(defstate config-options :start (load-config (:active-profile  @app-config)
+                                             (:environment @app-config)))

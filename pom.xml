@@ -16,7 +16,7 @@
   <scm>
     <connection>scm:git:git://github.com/manojarya/clojure-12-factor-app.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/manojarya/clojure-12-factor-app.git</developerConnection>
-    <tag>22ef184464eaff10173968dbff9482edf979c687
+    <tag>858465c53b1efda99e8f42ae8980cab157c5db6f
 </tag>
     <url>https://github.com/manojarya/clojure-12-factor-app</url>
   </scm>
@@ -77,6 +77,11 @@
       <groupId>com.stuartsierra</groupId>
       <artifactId>component</artifactId>
       <version>0.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>mount</groupId>
+      <artifactId>mount</artifactId>
+      <version>0.1.11</version>
     </dependency>
     <dependency>
       <groupId>propertea</groupId>

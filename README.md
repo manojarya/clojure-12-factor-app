@@ -21,13 +21,15 @@ If you don't want to disrupt your java .properties files based mechanism then I 
 If you don't have such a limitation that you have to use java properties file approach then I will strongly recommened Clojure's edn. The data format used in Datomic.
 
 
-## _Disposability - stuart sierra's component_
+## _Disposability - stuart sierra's component or Anatoly Polinsky's mount_
 
 One of the troubling aspect to me for a long time was how to maintain state in a big clojure app. What is the right way? I looked a lot and try to come up with approaches which eventually made my app messy. Then one day I stumbled on a talk by Stuart Sierra called "Component Just Enough Structure". The talk made complete sense and I tried his approach and it works. Before that I was confused on how my design is in big clojure app is going to be and how I can achieve passing state everywhere. This tiny framework makes your program state easy to reason with, visible and start/stop at will. And it does it so with Object where state is visible, that's a good call! and without losing any of the clojure principles like immutability and functional programming.
 
 link: https://github.com/stuartsierra/component
 
-Currently I am evaluating Mount which approaches it a bit differently. I will make a choice after spending enough time with it.
+Second famous choice I am evaluating Mount which approaches it a bit differently. I will make a choice after spending enough time with it. So far I really liked Mount which doesn't need a complete buy-in of component approach. Component is something I have done similar or people do in Spring application where everything is explicitely injected while mount is Singletons. 
+
+So far I have included both in here.
 
 
 ## _Logs - clj logging and logback_

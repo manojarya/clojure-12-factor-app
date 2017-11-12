@@ -8,13 +8,17 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [
-                 ;clojure core and tooling
+                 ;clojure
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.namespace "0.2.11"]
 
                  ;dependency and lifecycle management
                  [com.stuartsierra/component "0.3.2"]
 
+                 ;dependency, lifecycle and state management
+                 [mount "0.1.11"]
+
+                 ;config - java style properties files
                  [propertea "1.2.3"]
 
                  ;logging

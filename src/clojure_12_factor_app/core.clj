@@ -1,11 +1,13 @@
 (ns clojure-12-factor-app.core
   (:require
-            [clojure-12-factor-app.database :as db]
+            [clojure-12-factor-app.database-component :as db]
             [com.stuartsierra.component :as component]
-            [clojure-12-factor-app.config :as helper]
+            [mount.core :as mount]
+            [clojure-12-factor-app.config :as config]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.tools.logging :as log])
   (:gen-class))
+
 
 (defrecord App [options cache database]
   component/Lifecycle
@@ -27,3 +29,11 @@
 
 (defn get-app-data [database query]
   (db/select (:db-connection database) query))
+
+
+(defn start-app [& {:keys [active-profile environment]
+                :or { active-profile :default
+                     environment    {}}}]
+  (config/start active-profile environment)
+  (mount/start))
+
